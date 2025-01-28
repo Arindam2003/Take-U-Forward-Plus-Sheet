@@ -21,7 +21,7 @@ int main()
     {
         int rem;  //2
         rem=x%10;  
-        new_number=new_number+rem*pow(10,countDigit-1);
+        new_number=new_number+rem*(int)pow(10,countDigit-1);
         countDigit--;
         x=x/10;
     }
