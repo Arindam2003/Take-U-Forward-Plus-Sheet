@@ -1,39 +1,37 @@
 #include <iostream>
 using namespace std;
 
-void sequence(int idx, vector<int> &arr, int n, int target, vector<int> temp, vector<vector<int>> &ans)
+void backtrack(int start, vector<int> &arr, int target, vector<int> &temp, vector<vector<int>> &ans)
 {
     if (target == 0)
     {
         ans.push_back(temp);
-    }
-    if (target < 0 || idx >= n)
-    {
         return;
     }
-    temp.push_back(arr[idx]);
-    sequence(idx, arr, n, target - arr[idx], temp, ans);
-    temp.pop_back();
-    for(int i=idx+1;i<arr.size();i++)
+
+    for (int i = start; i < arr.size(); i++)
     {
-        if(arr[i]!=arr[idx])
-        {
-            sequence(i, arr, n, target, temp, ans);
-            break;
-        }
+        if (i > start && arr[i] == arr[i - 1])
+            continue; // skip duplicates
+
+        if (arr[i] > target)
+            break; // pruning
+
+        temp.push_back(arr[i]);
+        backtrack(i + 1, arr, target - arr[i], temp, ans);
+        temp.pop_back(); // backtrack
     }
-    
 }
 
 int main()
 {
-    vector<int> arr = {1, 3, 2};
+    vector<int> arr = {1, 3, 2,3};
     int target = 8;
     vector<int> temp;
     vector<vector<int>> ans;
-    sequence(0, arr, arr.size(), target, temp, ans);
-    sort(ans.begin(), ans.end());
-    ans.erase(unique(ans.begin(), ans.end()), ans.end());
+    sort(arr.begin(), arr.end());
+    backtrack(0, arr, target, temp, ans);
+    
     for (auto x : ans)
     {
         for (auto y : x)
