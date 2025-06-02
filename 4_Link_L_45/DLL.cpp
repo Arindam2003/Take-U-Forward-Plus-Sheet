@@ -115,15 +115,15 @@ void deleteGivenNode(Node *node)
     }
     delete nodetemp;
 }
-ListNode *insertBeforeHead(ListNode *head, int X)
+Node *insertBeforeHead(Node *head, int X)
 {
-    ListNode *newHead = new ListNode(X, head, nullptr);
+    Node *newHead = new Node(X, head, nullptr);
     head->prev = newHead;
     return newHead;
 }
-ListNode *insertBeforeTail(ListNode *head, int X)
+Node *insertBeforeTail(Node *head, int X)
 {
-    ListNode *newnode = new ListNode(X);
+    Node *newnode = new Node(X);
     if (head == nullptr)
     {
         head = newnode;
@@ -136,12 +136,42 @@ ListNode *insertBeforeTail(ListNode *head, int X)
         head = newnode;
         return head;
     }
-    ListNode *temp = head;
+    Node *temp = head;
     while (temp->next->next != nullptr)
     {
         temp = temp->next;
     }
-    ListNode *tempnxt = temp->next;
+    Node *tempnxt = temp->next;
+    temp->next = newnode;
+    newnode->prev = temp;
+    newnode->next = tempnxt;
+    tempnxt->prev = newnode;
+    return head;
+}
+Node *insertBeforeKthPosition(Node *head, int X, int K)
+{
+    Node *newnode = new Node(X);
+
+    if (head == nullptr)
+    {
+        head = newnode;
+        return head;
+    }
+    if (K == 1)
+    {
+        newnode->next = head;
+        head->prev = newnode;
+        head = newnode;
+        return head;
+    }
+    int i = 1;
+    Node *temp = head;
+    while (temp != nullptr && i < K - 1)
+    {
+        temp = temp->next;
+        i++;
+    }
+    Node *tempnxt = temp->next;
     temp->next = newnode;
     newnode->prev = temp;
     newnode->next = tempnxt;
