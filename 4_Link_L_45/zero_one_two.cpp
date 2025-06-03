@@ -53,11 +53,17 @@ ListNode* zero_one_two(ListNode* h1)
         if(temp->val==0)
         {
             zeromover->next=temp;
-            zeromover=zeromover->next;
+            zeromover=temp;
         }
         else if(temp->val==1)
         {
-            
+            onemover->next=temp;
+            onemover=temp;
+        }
+        else if(temp->val)
+        {
+            twomover->next=temp;
+            twomover=temp;
         }
     }
 }
