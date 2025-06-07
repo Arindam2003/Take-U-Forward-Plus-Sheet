@@ -1,5 +1,4 @@
 #include <iostream>
-#include <list>
 using namespace std;
 
 struct ListNode
@@ -72,6 +71,5 @@ int main()
 {
     vector<int> v1 = {1,0,2,0,1};
     ListNode *h1 = convert(v1);
-
-
+    ListNode* res = zero_one_two(h1);
 }
