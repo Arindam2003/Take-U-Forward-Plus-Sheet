@@ -38,6 +38,7 @@ vector<vector<int>> three_sum(vector<int> nums)
             }
         }
     }
+    return ans;
 }
 
 int main()
