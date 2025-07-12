@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 class Node{
@@ -16,15 +17,12 @@ public:
 
 Node* buildTree(vector<int> &preOrder,int &idx){
     idx++;
-
     if(preOrder[idx]==-1){
         return nullptr;
     }
-
     Node* root=new Node(preOrder[idx]);
     root->left=buildTree(preOrder,idx);
     root->right=buildTree(preOrder,idx);
-
     return root;
 }
 
@@ -48,6 +46,48 @@ void inOrderTraversal(Node* root){
     cout << root->data << " ";
     preOrderTraversal(root->right);
 }
+void postOrder(Node* root){
+    if(root==nullptr)
+    {
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->data<<" ";
+}
+
+void levelOder(Node* root){
+
+    queue<Node*> q;
+    q.push(root);
+    q.push(nullptr);
+    while (q.size()>0)
+    {
+        Node* curr=q.front();
+        q.pop();
+        
+        if(curr ==nullptr)
+        {
+            if(!q.empty()){
+                cout<<endl;
+                q.push(nullptr);
+                continue;
+            }else{
+                break;
+            }
+        }
+        cout<<curr->data<<" ";
+        if(curr->left!=nullptr)
+        {
+            q.push(curr->left);
+        }
+        if(curr->right!=nullptr)
+        {
+            q.push(curr->right);
+        }
+    }
+    cout<<endl;
+}
 
 int main()
 {
@@ -55,11 +95,14 @@ int main()
     int idx=-1;
     Node* root=buildTree(preOrder,idx);
     // preOrderTraversal(root);  //! preOrder Traversal...
-    inOrderTraversal(root);
-        // cout<<root->data<<endl;
-        // cout<<root->left->data<<endl; //! left data first root
-        // cout<<root->right->data<<endl; //! right data first root
-        // cout<<root->right->left->data<<endl;
+    // inOrderTraversal(root); //! inorder Traversal...
+    // postOrder(root); //! level order traversal...
+
+    levelOder(root);
+    // cout<<root->data<<endl;
+    // cout<<root->left->data<<endl; //! left data first root
+    // cout<<root->right->data<<endl; //! right data first root
+    // cout<<root->right->left->data<<endl;
 
         return 0;
 }
