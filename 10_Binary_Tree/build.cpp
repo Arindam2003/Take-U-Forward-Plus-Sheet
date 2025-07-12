@@ -89,6 +89,38 @@ void levelOder(Node* root){
     cout<<endl;
 }
 
+int height(Node* root){
+    if(root==nullptr)
+    {
+        return 0;
+    }
+    int leftHT=height(root->left);
+    int rightHT=height(root->right);
+    return max(rightHT,leftHT)+1;
+}
+
+int count (Node * root)
+{
+    if(root==nullptr)
+    {
+        return 0;
+    }
+    int leftCount=count(root->left);
+    int rightCount=count(root->right);
+    return leftCount+rightCount+1;
+}
+
+int sum(Node * root)
+{
+    if(root==nullptr)
+    {
+        return 0;
+    }
+    int leftSum=sum(root->left);
+    int rightSum=sum(root->right);
+    return (leftSum+rightSum+root->data);
+}
+
 int main()
 {
     vector<int> preOrder={1,2,-1,-1,3,4,-1,-1,5,-1,-1};
@@ -103,6 +135,11 @@ int main()
     // cout<<root->left->data<<endl; //! left data first root
     // cout<<root->right->data<<endl; //! right data first root
     // cout<<root->right->left->data<<endl;
-
-        return 0;
+    int h=height(root);
+    int c=count(root);
+    int s=sum(root);
+    cout<<"Height->"<<h<<endl;
+    cout<<"Count->"<<c<<endl;
+    cout<<"Sum->"<<s<<endl;
+    return 0;
 }
